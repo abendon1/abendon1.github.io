@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的迷你微博</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f2f2f7; margin: 0; padding: 0; color: #333; }
+        .navbar { background: #ffffff; border-bottom: 1px solid #e0e0e0; padding: 15px 20px; font-size: 20px; font-weight: bold; color: #ff8200; text-align: center; position: sticky; top: 0; z-index: 100; }
+        .container { max-width: 600px; margin: 20px auto; padding: 0 10px; }
+        .box { background: #ffffff; border-radius: 12px; padding: 15px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        textarea { width: 100%; height: 80px; border: none; resize: none; outline: none; font-size: 16px; font-family: inherit; }
+        .btn-publish { background-color: #ff8200; color: white; border: none; padding: 8px 20px; border-radius: 20px; font-size: 14px; cursor: pointer; float: right; font-weight: bold; }
+        .btn-publish:hover { background-color: #e67300; }
+        .clearfix::after { content: ""; display: table; clear: both; }
+        .post { display: flex; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px; margin-bottom: 15px; }
+        .post:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .avatar { width: 40px; height: 40px; border-radius: 50%; background-color: #ddd; margin-right: 10px; flex-shrink: 0; }
+        .post-content { flex-grow: 1; }
+        .post-header { margin-bottom: 5px; }
+        .username { font-weight: bold; color: #333; margin-right: 5px; }
+        .time { color: #999; font-size: 12px; }
+        .post-text { font-size: 15px; line-height: 1.5; margin: 0 0 10px 0; word-break: break-all; }
+        .post-actions { color: #999; font-size: 13px; display: flex; gap: 20px; }
+    </style>
+</head>
+<body>
+    <div class="navbar">迷你微博</div>
+    <div class="container">
+        <div class="box">
+            <textarea id="postInput" placeholder="有什么新鲜事想分享给大家？"></textarea>
+            <div class="clearfix">
+                <button class="btn-publish" onclick="publishPost()">发布</button>
+            </div>
+        </div>
+        <div class="box" id="feedContainer">
+            <div class="post">
+                <div class="avatar" style="background-color: #ffb74d;"></div>
+                <div class="post-content">
+                    <div class="post-header">
+                        <span class="username">我的小号</span>
+                        <span class="time">刚刚</span>
+                    </div>
+                    <p class="post-text">大家好！这是我的第一个个人网站，用的是 GitHub Pages！🎉</p>
+                    <div class="post-actions">
+                        <span>转发</span><span>评论</span><span>点赞</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function publishPost() {
+            const input = document.getElementById('postInput');
+            const text = input.value.trim();
+            if (text === '') { alert('说点什么再发布吧！'); return; }
+            const newPost = document.createElement('div');
+            newPost.className = 'post';
+            newPost.innerHTML = `
+                <div class="avatar" style="background-color: #4fc3f7;"></div>
+                <div class="post-content">
+                    <div class="post-header">
+                        <span class="username">我</span>
+                        <span class="time">刚刚</span>
+                    </div>
+                    <p class="post-text">${text}</p>
+                    <div class="post-actions">
+                        <span>转发</span><span>评论</span><span>点赞</span>
+                    </div>
+                </div>
+            `;
+            const feed = document.getElementById('feedContainer');
+            feed.insertBefore(newPost, feed.firstChild);
+            input.value = '';
+        }
+    </script>
+</body>
+</html>
